@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+
+import React, { useState } from "react";
 
 function App() {
+  const data = [
+    {
+      id: 1,
+      name: "John Smith",
+    },
+    {
+      id: 2,
+      name: "Jane Smith",
+    },
+    {
+      id: 3,
+      name: "Joe Shmoe",
+    },
+  ];
+  const [filteredData, setFilteredData] = useState(data);
+
+  const search = (e) =>
+    setFilteredData(data.filter((item) => item.name.includes(e.target.value)));
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Search example</h1>
+      <input type="text" placeholder="Search" onKeyUp={search} />
+      <ul>
+        {filteredData.map((user) => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
     </div>
   );
 }
